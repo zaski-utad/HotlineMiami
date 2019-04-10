@@ -11,6 +11,16 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		moving = false;
 	}
+	
+	private void Update()
+	{
+		if (moving)
+		{
+			Movement();
+		}
+		
+		MovementCheck();
+	}
 
 	void Movement() // serie de IFs
 	{
@@ -34,7 +44,7 @@ public class PlayerMovement : MonoBehaviour {
 			transform.Translate(Vector3.right * speed * Time.deltaTime, Space.World); //space.World en relacion al mundo... muevete
 			moving = true;
 		}
-		if(Input.GetKey(KeyCode.W) != true && Input.GetKey(KeyCode.S)&& Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D) )
+		if(!Input.GetKey(KeyCode.W)  && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) )
 		{
 			moving = false;
 		}
@@ -43,8 +53,22 @@ public class PlayerMovement : MonoBehaviour {
         
 	}
 
-	private void Update()
+	void MovementCheck()
 	{
-		Movement();
+		if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) &&
+		    !Input.GetKey(KeyCode.D))
+		{
+			moving = false;
+		}
+		else
+		{
+			moving = true;
+		}
+	}
+
+	// Setter
+	public void setMoving(bool movement)
+	{
+		moving = movement;
 	}
 }
